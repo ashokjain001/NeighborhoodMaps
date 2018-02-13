@@ -3,7 +3,7 @@ Neighborhooed Maps
 This is fifth project of the Udacity Fullstack Nanodegree Program.
 This app is to demonstrate the ability to use a js framework(knockout.js) together with Google Maps API and Foursquare API.
 
-##Technology used - 
+## Technology used - 
 1.Knockout.js 
 2.Google Maps API - show all the fav places in NYC
 3.Foursquare API to show info on places
