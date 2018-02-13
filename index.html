@@ -14,15 +14,12 @@
 
 	      <h1>Neighborhood Map:</h1>
 
-	     
+          <div class='center'><em><strong>Search My Favorite Locations in NYC: </em></strong></div>
 
 	      <div class = "input-group"> 
 	      	<input type="text" data-bind="textInput: searchOption, valueUpdate: 'afterkeydown' " placeholder="Search Favorite Locations...">
 	      </div>
-          <hr/>
-
-	      <div class='center'><em><strong>My Favorite Locations in NYC: </em></strong></div>
-
+ 
 		      	<ul data-bind="foreach: myLocationsFilter">
 			        <li data-bind="text: title, click: $parent.setLocation"></li></a>
 		        </ul>
