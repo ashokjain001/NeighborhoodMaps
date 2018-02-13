@@ -1,4 +1,4 @@
-Neighborhooed Maps
+Neighborhood Maps
 =========================
 This is fifth project of the Udacity Fullstack Nanodegree Program.
 This app is to demonstrate the ability to use a js framework(knockout.js) together with Google Maps API and Foursquare API.
