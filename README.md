@@ -17,4 +17,4 @@ git clone https://github.com/ashokjain001/NeighborhoodMaps.git
 ```
 Run index.html from NeighborhoodMaps folder 
 
-Live web app can be found at [Catalog APP](https://ashokjain001.github.io/NeighborhoodMaps/).
+This app can be found at [Neighborhood Maps](https://ashokjain001.github.io/NeighborhoodMaps/).
