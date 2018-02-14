@@ -1,47 +1,10 @@
-//list of favorite locations
-var favlocations = [
-    {
-      title: 'Park Ave Penthouse',
-      lat: 40.7713024, 
-      lng: -73.9632393,
-    },
-
-    {
-      title: 'Chelsea Loft',
-      lat: 40.7444883, 
-      lng: -73.9949465,
-    },
-    {
-      title: 'Union Square Open Floor Plan',
-      lat: 40.7347062,
-      lng: -73.9895759,
-    },
-    {
-      title: 'East Village Hip Studio', 
-      lat: 40.7281777, 
-      lng: -73.984377,
-    },
-    {
-      title: 'TriBeCa Artsy Bachelor Pad',
-      lat: 40.7195264, 
-      lng: -74.0089934,
-    },
-    {
-      title: 'Chinatown Homey Space',
-      lat: 40.7180628,
-      lng: -73.9961237,
-    }
-
-]
-
-
+//Assigning variables
 var markers = [];
 var map;
 
-//foursqaure variables
-FS_URL = 'https://api.foursquare.com/v2/venues/search';
-clientID = '322YK1NCTFEZMVE4DP542QSV13UM3JCEXTIS3MMBBLTVGAVN';
-clientSecret = 'XDG3FOKADQQH53LCC1YVJMLBYFCNXVEHPRV1K5OCONCB2MLE';
+var FS_URL = 'https://api.foursquare.com/v2/venues/search';
+var clientID = '322YK1NCTFEZMVE4DP542QSV13UM3JCEXTIS3MMBBLTVGAVN';
+var clientSecret = 'XDG3FOKADQQH53LCC1YVJMLBYFCNXVEHPRV1K5OCONCB2MLE';
 
 
 // main viewmodel function
@@ -64,7 +27,7 @@ var ViewModel = function(){
       };
 
       //dynamically update the fav location list based input search bar
-       this.myLocationsFilter = ko.computed(function() {
+      this.favLocationsFilter = ko.computed(function() {
         var result = [];
        
         for (var i = 0; i < favlocations.length; i++) {
@@ -89,9 +52,10 @@ function initMap(){
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.7413549, lng: -73.9980244},
           zoom: 12,
-          mapTypeControl: false
+          mapTypeControl: false,
+          styles: styles
         }); 
-};
+}
 
 //function to make marker
 function makeMarker(favlocations){
@@ -120,8 +84,8 @@ function makeMarker(favlocations){
           marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
           });
-        };
-};
+        }
+}
 
 //function to show marker
 function showMarker(location) {
@@ -135,21 +99,21 @@ function showMarker(location) {
           bounds.extend(markers[i].position);
         }
         map.fitBounds(bounds);
-      };
+      }
 
 
 // function to pull info from foursqaure and populate the infowindow
 function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
-       
+        position = marker.position;
         lat = marker.lat;
         lng = marker.lng;
         title = marker.title;
         infowindow.marker = marker;   
       
         var apiUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + 
-                      lat + ',' + lng + '&client_id=' + clientID 
-                + '&client_secret=' + clientSecret + '&v=20180212' +'&query=' + title;
+                      lat + ',' + lng + '&client_id=' + clientID +
+                      '&client_secret=' + clientSecret + '&v=20180212' +'&query=' + title;
         
        $.getJSON(apiUrl, function(data){
             response = data.response.venues[0];
@@ -167,16 +131,14 @@ function populateInfoWindow(marker, infowindow) {
                 infowindow.setContent(infowindowHTML);
               }else{
                 infowindow.setContent('<div>' + marker.title + '</div>');
-              };
-        });
+              }
+        })
         infowindow.open(map, marker); 
-      };
+      }
 
 function runApp(){
   ko.applyBindings(new ViewModel());
 }
-
-
 
 
 

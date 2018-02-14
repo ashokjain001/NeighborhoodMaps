@@ -1,11 +1,13 @@
 Neighborhood Maps
 =========================
 This is fifth project of the Udacity Fullstack Nanodegree Program.
-This app is to demonstrate the ability to use a js framework(knockout.js) together with Google Maps API and Foursquare API.
+
+This is a single page application featuring a map of my favorite neighborhood. This app demonstrates the ability to use a js framework(knockout.js) together with Google Maps API and Foursquare API.
+
 
 ## Skills Demonstrated
 * Knockout.js 
-* Google Maps API - show all the fav places in NYC
+* Google Maps API to show all the fav places in NYC
 * Foursquare API to show info on places
 * HTML
 * CSS 
@@ -17,4 +19,4 @@ git clone https://github.com/ashokjain001/NeighborhoodMaps.git
 ```
 Run index.html from NeighborhoodMaps folder 
 
-This app can be found at [Neighborhood Maps](https://ashokjain001.github.io/NeighborhoodMaps/).
+Live app can be found running at [Neighborhood Maps](https://ashokjain001.github.io/NeighborhoodMaps/).

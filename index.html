@@ -17,10 +17,10 @@
           <div class='center'><em><strong>Search My Favorite Locations in NYC: </em></strong></div>
 
 	      <div class = "input-group"> 
-	      	<input type="text" data-bind="textInput: searchOption, valueUpdate: 'afterkeydown' " placeholder="Search Favorite Locations...">
+	      	<input type="text" data-bind="textInput: searchOption, valueUpdate: 'keydown' " placeholder="Search Favorite Locations...">
 	      </div>
  
-		      	<ul data-bind="foreach: myLocationsFilter">
+		      	<ul data-bind="foreach: favLocationsFilter">
 			        <li data-bind="text: title, click: $parent.setLocation"></li></a>
 		        </ul>
 
@@ -38,7 +38,9 @@
 
     	<script src="js/lib/knockout-3.2.0.js"></script>
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-    	<script src="js/app.js"></script>
+    	<script src="js/styles.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/location.js"></script>
     	<script src="js/bootstrap.min.js"></script>
 
     </body>
