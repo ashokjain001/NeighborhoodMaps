@@ -13,10 +13,6 @@ var ViewModel = function(){
       initMap();
       showMarker(favlocations);
 
-      //this.currentLocation = ko.observable(new locations());
-
-      var self = this;
-
       //saves input from text field to be used in filter 
       this.searchOption = ko.observable('');
 
@@ -59,24 +55,25 @@ function initMap(){
 
 //function to make marker
 function makeMarker(favlocations){
-        //loop through the location
-         for (var i = 0; i < favlocations.length; i++) {
-          // Get the position from the location array.
-          var position = {lat: favlocations[i].lat, lng:  favlocations[i].lng};
-          //setting title
-          var title = favlocations[i].title;
-          // Create a marker per location, and put into markers array.
-          var marker = new google.maps.Marker({
+
+          //defining variables
+          this.position = {lat: favlocations.lat, lng:  favlocations.lng};
+          this.lat = favlocations.lat;
+          this.lng = favlocations.lng;
+         
+          this.title = favlocations.title;
+          
+          this.marker = new google.maps.Marker({
               position: position,
               title: title,
               animation: google.maps.Animation.DROP,
-              lat: favlocations[i].lat,
-              lng: favlocations[i].lng,
-              id: i, 
+              lat: favlocations.lat,
+              lng: favlocations.lng,
+               
           });
 
           // Push the marker to our array of markers.
-          markers.push(marker);
+          this.markers.push(this.marker);
 
           var largeInfowindow = new google.maps.InfoWindow();
 
@@ -84,19 +81,23 @@ function makeMarker(favlocations){
           marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
           });
-        }
+        //}
 }
 
 //function to show marker
 function showMarker(location) {
-      
-        makeMarker(location);
+        
+        //make marker for the location
+        for (var i = 0; i < location.length; i++){
+          makeMarker(location[i]);
+        }
+        //creating bounds
         var bounds = new google.maps.LatLngBounds();
 
         // Extend the boundaries of the map for each marker and display the marker
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-          bounds.extend(markers[i].position);
+        for (var j = 0; j < markers.length; j++) {
+          markers[j].setMap(map);
+          bounds.extend(markers[j].position);
         }
         map.fitBounds(bounds);
       }
@@ -105,6 +106,7 @@ function showMarker(location) {
 // function to pull info from foursqaure and populate the infowindow
 function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
+        console.log(marker, 'marker');
         position = marker.position;
         lat = marker.lat;
         lng = marker.lng;
@@ -132,7 +134,7 @@ function populateInfoWindow(marker, infowindow) {
               }else{
                 infowindow.setContent('<div>' + marker.title + '</div>');
               }
-        })
+        });
         infowindow.open(map, marker); 
       }
 
