@@ -11,21 +11,23 @@ var clientSecret = 'XDG3FOKADQQH53LCC1YVJMLBYFCNXVEHPRV1K5OCONCB2MLE';
 var ViewModel = function(){
 
       initMap();
+      
       showMarker(favlocations);
-
       //saves input from text field to be used in filter 
       this.searchOption = ko.observable('');
 
       //activating marker on selected location in search
       this.setLocation = function(clickedLocation){
-      // highlighting location marker on list click             
+      // highlighting location marker on list click
+        ////////code here
         showMarker([clickedLocation]);                  
       };
 
       //dynamically update the fav location list based input search bar
+
       this.favLocationsFilter = ko.computed(function() {
         var result = [];
-       
+        clearMarkers(markers);
         for (var i = 0; i < favlocations.length; i++) {
             var markerLocationTitle = favlocations[i].title;
             if (markerLocationTitle.toLowerCase().includes(this.searchOption()
@@ -34,11 +36,12 @@ var ViewModel = function(){
                         { title: favlocations[i].title,
                           lat: favlocations[i].lat, 
                           lng: favlocations[i].lng };
-  
+                console.log(0,'000fgsdfgdf0000');
                 result.push(markerLoc);      
             } 
         }
-        return result;
+        showMarker(result);
+          return result;
     }, this);  
   };
 
@@ -79,34 +82,62 @@ function makeMarker(favlocations){
 
           // Create an onclick event to open the large infowindow at each marker.
           marker.addListener('click', function() {
+            hideAllInfoWindows(map);
             populateInfoWindow(this, largeInfowindow);
           });
-        //}
+      
 }
 
 //function to show marker
 function showMarker(location) {
-        
+        markers = [];
+        console.log(location,'location');
         //make marker for the location
         for (var i = 0; i < location.length; i++){
           makeMarker(location[i]);
         }
+     
         //creating bounds
         var bounds = new google.maps.LatLngBounds();
 
         // Extend the boundaries of the map for each marker and display the marker
         for (var j = 0; j < markers.length; j++) {
           markers[j].setMap(map);
+       
           bounds.extend(markers[j].position);
         }
+
+        //list item location  click infowindow view
+        var largeInfowindow = new google.maps.InfoWindow();
+        if(markers.length == 1){
+          populateInfoWindow(markers[0], largeInfowindow);          
+        }
+
         map.fitBounds(bounds);
+        map.setZoom(14);
       }
+
+//clear markers bases on input fields
+function clearMarkers(location) {
+         for (var j = 0; j < markers.length; j++) {
+          console.log('bounds',j);
+          markers[j].setMap(null);
+     
+        }
+      }
+
+function hideAllInfoWindows(map) {
+   markers.forEach(function(marker) {
+     marker.infowindow.close(map, marker);
+  }); 
+}
+
 
 
 // function to pull info from foursqaure and populate the infowindow
 function populateInfoWindow(marker, infowindow) {
-        // Check to make sure the infowindow is not already opened on this marker.
-        console.log(marker, 'marker');
+        //   Check to make sure the infowindow is not already opened on this marker.
+        
         position = marker.position;
         lat = marker.lat;
         lng = marker.lng;
@@ -119,7 +150,7 @@ function populateInfoWindow(marker, infowindow) {
         
        $.getJSON(apiUrl, function(data){
             response = data.response.venues[0];
-            console.log(response);
+            
             if (typeof response != 'undefined'){
                 self.name = response.name;
                 self.address = response.location.formattedAddress[0];

@@ -7,9 +7,9 @@ var favlocations = [
     },
 
     {
-      title: 'Chelsea Loft',
-      lat: 40.7444883, 
-      lng: -73.9949465,
+      title: 'Statue of Liberty',
+      lat: 40.6892, 
+      lng: -74.0445,
     },
     {
       title: 'Union Square Open Floor Plan',
@@ -22,14 +22,14 @@ var favlocations = [
       lng: -73.984377,
     },
     {
-      title: 'TriBeCa Artsy Bachelor Pad',
-      lat: 40.7195264, 
-      lng: -74.0089934,
+      title: 'Guggenheim Museum',
+      lat: 40.782879, 
+      lng: -73.959027,
     },
     {
-      title: 'Chinatown Homey Space',
-      lat: 40.7180628,
-      lng: -73.9961237,
+      title: 'Central Park',
+      lat: 40.785091,
+      lng: -73.968285,
     }
 
 ];

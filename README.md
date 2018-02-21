@@ -2,7 +2,7 @@ Neighborhood Maps
 =========================
 This is fifth project of the Udacity Fullstack Nanodegree Program.
 
-This is a single page application featuring a map of my favorite neighborhood. This app demonstrates the ability to use a js framework(knockout.js) together with Google Maps API and Foursquare API.
+This is a single page web application featuring a map of my favorite neighborhood. This app demonstrates the ability to use a js framework(knockout.js) together with Google Maps API and Foursquare API.
 
 
 ## Skills Demonstrated

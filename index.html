@@ -3,8 +3,10 @@
 
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="css/main.css">
+    <title>Neighborhood Maps</title>
     </head>
 
     <body>
@@ -32,8 +34,9 @@
 	    <div id="map"></div>	
 		</div>
 
-    	<script async defer
-        	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyAY5KtLUilri1DSYwCIOMBkVsgf_NlQdYY&v=3&callback=runApp">
+    	<script defer
+        	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyAY5KtLUilri1DSYwCIOMBkVsgf_NlQdYY&v=3&callback=runApp" 
+            onerror="googleError()">
     	</script>
 
     	<script src="js/lib/knockout-3.2.0.js"></script>
