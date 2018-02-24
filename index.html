@@ -3,36 +3,52 @@
 
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!--referencing Jquery and bootstrap-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
     <link rel="stylesheet" href="css/main.css">
+
+
     <title>Neighborhood Maps</title>
     </head>
 
     <body>
+
+<!-- Include the above in your HEAD tag -->
+
+<div id='wrapper'>
     
-    	<div class="container">
-	    <div class="options-box">
+    <div id="sidebar-wrapper">
 
-	      <h1>Neighborhood Map:</h1>
+        <h3 class='space'>Neighborhood Map:</h3>
 
-          <div class='center'><em><strong>Search My Favorite Locations in NYC: </em></strong></div>
+        <p class='space'>Search My Favorite Locations in NYC: </p>
 
-	      <div class = "input-group"> 
-	      	<input type="text" data-bind="textInput: searchOption, valueUpdate: 'keydown' " placeholder="Search Favorite Locations...">
-	      </div>
- 
-		      	<ul data-bind="foreach: favLocationsFilter">
-			        <li data-bind="text: title, click: $parent.setLocation"></li></a>
-		        </ul>
+        <input type="text" data-bind="textInput: searchOption, valueUpdate: 'keydown' " placeholder="Search Favorite Locations...">
 
-		   </div>
-	      </div>
+        <ul class="sidebar-nav" data-bind="foreach: favLocationsFilter">
+            <li data-bind="text: title, click: $parent.setLocation"></li></a>
+        </ul>
+            
+    </div>
 
-	    </div>
+    <div class="page-content-wrapper">
 
-	    <div id="map"></div>	
-		</div>
+           <button type="button" class="btn btn-default buttonplacing" id='menu-toggle'>
+            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+           </button>
+
+
+	    <div id="map"></div>
+
+    </div>
+
+</div>
 
     	<script defer
         	src="https://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&key=AIzaSyAY5KtLUilri1DSYwCIOMBkVsgf_NlQdYY&v=3&callback=runApp" 
@@ -40,11 +56,11 @@
     	</script>
 
     	<script src="js/lib/knockout-3.2.0.js"></script>
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    	
     	<script src="js/styles.js"></script>
         <script src="js/app.js"></script>
         <script src="js/location.js"></script>
-    	<script src="js/bootstrap.min.js"></script>
+        <script src="js/resize.js"></script>
 
     </body>
 

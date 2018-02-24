@@ -7,9 +7,9 @@ var favlocations = [
     },
 
     {
-      title: 'Statue of Liberty',
-      lat: 40.6892, 
-      lng: -74.0445,
+      title: 'Empire State Building',
+      lat: 40.7484, 
+      lng: -73.9857,
     },
     {
       title: 'Union Square Open Floor Plan',
@@ -33,3 +33,5 @@ var favlocations = [
     }
 
 ];
+
+

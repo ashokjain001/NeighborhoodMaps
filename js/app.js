@@ -50,7 +50,7 @@ function initMap(){
     // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.7413549, lng: -73.9980244},
-          zoom: 12,
+          zoom: 14,
           mapTypeControl: false,
           styles: styles
         }); 
@@ -79,10 +79,10 @@ function makeMarker(favlocations){
           this.markers.push(this.marker);
 
           var largeInfowindow = new google.maps.InfoWindow();
-
+       
           // Create an onclick event to open the large infowindow at each marker.
           marker.addListener('click', function() {
-            hideAllInfoWindows(map);
+           
             populateInfoWindow(this, largeInfowindow);
           });
       

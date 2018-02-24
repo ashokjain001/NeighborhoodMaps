@@ -1,54 +1,91 @@
 
-body{
 
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	font-family: Ariel,sans-serif;
+#sidebar-wrapper {
+    position: absolute;
+    color: #222;
+    background: #222;
+    overflow-y: hidden;
+    width: 0;
+    height: 100%;
+    z-index: 1;
+    transition: all .4s ease 0s;
+    text-align: center;
+}
 
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
 }
 
 #map {
         height: 100%;
         position: absolute;
-        right: 0px;
-        bottom: 0px;
-        left: 342px;
-      }
-
-.options-box{
-        background: #fff;
-        border: 1px solid #999;
-        border-radius: 3px;
-        height: 100%;
-        line-height:40px;
-        padding: 10px 10px 10px 10px;
-        text-align: left;
-        width: 320px;
-      }
-
-.container{
-    padding-left: 0;
-    padding-right: 0;
-
+        width: 100%;
 }
 
- #pano {
-        width: 200px;
-        height: 200px;
-      }
-
-
-.center {
-    text-align: center;
+#wrapper.sidebarDisplay #sidebar-wrapper {
+    width: 300px;
 }
 
-.input-group {
+#wrapper.sidebarDisplay #page-content-wrapper {
+    padding-left: 300px;
+}
 
-    padding-left: 25px;
-    padding-right: 30px;
+#wrapper.sidebarDisplay .buttonplacing{
+    left: 350px;
+}
+
+
+#wrapper.sidebarDisplay .sidebar-nav li {
+
+    line-height: 40px;
+    text-indent: 0px;
+    text-align: left;
+    color: #999;
+    width: 100%;
+    display: block;
+    float: left;
+    background: #252525;
+    text-decoration: none;
+    border-top: 1px solid #373737;
+    border-bottom: 1px solid #1A1A1A;
+    -webkit-transition: background .5s;
+    -moz-transition: background .5s;
+    -o-transition: background .5s;
+    -ms-transition: background .5s;
+    transition: background .5s;
+}
+
+.buttonplacing {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    z-index: 1;
 }
 
 input {
+    position: relative;
     width: 100%;
 }
+
+.sidebar-nav li:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+
+.space {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+}
+
+@media (max-width:767px) {
+    #wrapper {
+    transition: all .4s ease 0s;
+}
+
+
+
+
+
