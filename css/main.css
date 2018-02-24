@@ -32,7 +32,7 @@
 }
 
 #wrapper.sidebarDisplay .buttonplacing{
-    left: 350px;
+    left: 300px;
 }
 
 
@@ -59,7 +59,7 @@
 .buttonplacing {
     position: absolute;
     top: 50px;
-    left: 100px;
+    left: 50px;
     z-index: 1;
 }
 
