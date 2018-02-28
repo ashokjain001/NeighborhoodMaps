@@ -1,7 +1,6 @@
 //Assigning variables
 var markers = [];
 var map;
-
 var FS_URL = 'https://api.foursquare.com/v2/venues/search';
 var clientID = '322YK1NCTFEZMVE4DP542QSV13UM3JCEXTIS3MMBBLTVGAVN';
 var clientSecret = 'XDG3FOKADQQH53LCC1YVJMLBYFCNXVEHPRV1K5OCONCB2MLE';
@@ -11,8 +10,13 @@ var clientSecret = 'XDG3FOKADQQH53LCC1YVJMLBYFCNXVEHPRV1K5OCONCB2MLE';
 var ViewModel = function(){
 
       initMap();
+
+      var self = this;      
+
       
+      var largeInfowindow = new google.maps.InfoWindow();
       showMarker(favlocations);
+      console.log(markers);
       //saves input from text field to be used in filter 
       this.searchOption = ko.observable('');
 
@@ -20,27 +24,33 @@ var ViewModel = function(){
       this.setLocation = function(clickedLocation){
       // highlighting location marker on list click
         ////////code here
-        showMarker([clickedLocation]);                  
+        console.log(clickedLocation);
+       populateInfoWindow([clickedLocation]);                  
       };
 
-      //dynamically update the fav location list based input search bar
+      this.populateAndBounceMarker= function(clickedLocation){
+        console.log(clickedLocation);
+        self.populateInfoWindow(this, self.largeInfoWindow);
+        this.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout((function() {
+            this.setAnimation(null);
+        }).bind(this), 1400);
+    };
 
+
+      //dynamically update the fav location list based input search bar
       this.favLocationsFilter = ko.computed(function() {
         var result = [];
-        clearMarkers(markers);
-        for (var i = 0; i < favlocations.length; i++) {
-            var markerLocationTitle = favlocations[i].title;
-            if (markerLocationTitle.toLowerCase().includes(this.searchOption()
+        for (var i = 0; i < markers.length; i++) {
+            var markerLocation = markers[i];
+            if (markerLocation.title.toLowerCase().includes(this.searchOption()
                     .toLowerCase())) {
-                var markerLoc = 
-                        { title: favlocations[i].title,
-                          lat: favlocations[i].lat, 
-                          lng: favlocations[i].lng };
-                console.log(0,'000fgsdfgdf0000');
-                result.push(markerLoc);      
-            } 
+                result.push(markerLocation);
+                markers[i].setVisible(true);      
+            } else {
+                markers[i].setVisible(false);
+            }
         }
-        showMarker(result);
           return result;
     }, this);  
   };
@@ -50,7 +60,7 @@ function initMap(){
     // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 40.7413549, lng: -73.9980244},
-          zoom: 14,
+          zoom: 13,
           mapTypeControl: false,
           styles: styles
         }); 
@@ -58,46 +68,44 @@ function initMap(){
 
 //function to make marker
 function makeMarker(favlocations){
-
-          //defining variables
-          this.position = {lat: favlocations.lat, lng:  favlocations.lng};
-          this.lat = favlocations.lat;
-          this.lng = favlocations.lng;
-         
-          this.title = favlocations.title;
           
-          this.marker = new google.maps.Marker({
-              position: position,
-              title: title,
+          console.log(favlocations);
+
+          for(var i = 0; i < favlocations.length; i++){
+
+              this.position = {lat: favlocations[i].lat, lng:  favlocations[i].lng};
+              this.lat = favlocations[i].lat;
+              this.lng = favlocations[i].lng;
+              this.title = favlocations[i].title;
+
+              this.marker = new google.maps.Marker({
+              position: this.position,
+              title: this.title,
               animation: google.maps.Animation.DROP,
-              lat: favlocations.lat,
-              lng: favlocations.lng,
-               
-          });
+              lat: this.lat,
+              lng: this.lng,
+              id: i   
+              });
+
+          console.log(this.marker);
+          //this.marker.setMap(map);
 
           // Push the marker to our array of markers.
-          this.markers.push(this.marker);
+          markers.push(this.marker);
+          console.log(markers,'amrkers');
+        
 
-          var largeInfowindow = new google.maps.InfoWindow();
-       
-          // Create an onclick event to open the large infowindow at each marker.
-          marker.addListener('click', function() {
-           
-            populateInfoWindow(this, largeInfowindow);
-          });
-      
+          this.marker.addListener('click', self.populateAndBounceMarker);
+
+          };
 }
 
 //function to show marker
-function showMarker(location) {
-        markers = [];
-        console.log(location,'location');
-        //make marker for the location
-        for (var i = 0; i < location.length; i++){
-          makeMarker(location[i]);
-        }
-     
-        //creating bounds
+function showMarker(favlocations) {
+             
+              
+        makeMarker(favlocations);     
+
         var bounds = new google.maps.LatLngBounds();
 
         // Extend the boundaries of the map for each marker and display the marker
@@ -108,30 +116,7 @@ function showMarker(location) {
         }
 
         //list item location  click infowindow view
-        var largeInfowindow = new google.maps.InfoWindow();
-        if(markers.length == 1){
-          populateInfoWindow(markers[0], largeInfowindow);          
-        }
-
-        map.fitBounds(bounds);
-        map.setZoom(14);
       }
-
-//clear markers bases on input fields
-function clearMarkers(location) {
-         for (var j = 0; j < markers.length; j++) {
-          console.log('bounds',j);
-          markers[j].setMap(null);
-     
-        }
-      }
-
-function hideAllInfoWindows(map) {
-   markers.forEach(function(marker) {
-     marker.infowindow.close(map, marker);
-  }); 
-}
-
 
 
 // function to pull info from foursqaure and populate the infowindow
@@ -162,21 +147,21 @@ function populateInfoWindow(marker, infowindow) {
                 infowindowHTML = '<h1>' + self.name + '</h2><p>' + self.address + '</p><p>'+  
                                   self.city +'</p><p>' + self.country + '</p><p>' + self.contact +'</p>';          
                 infowindow.setContent(infowindowHTML);
-              }else{
-                infowindow.setContent('<div>' + marker.title + '</div>');
               }
+        }).fail(function(){
+          alert('There was an issue with the foursqaure API. Please try again');
         });
         infowindow.open(map, marker); 
       }
 
+
+function googleError() {
+    alert('Google Maps has failed to load. Please check your internet connection or try again later.');
+}
+
 function runApp(){
   ko.applyBindings(new ViewModel());
 }
-
-
-
-
-
 
 
 
